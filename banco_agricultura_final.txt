@@ -1,0 +1,367 @@
+use agricultura;
+
+-- 1 - Apresente a SQL para alterar a estrutura de uma das tabelas de seu banco
+-- de forma a adicionar mais dois campos (escolha uma tabela e os campos que achar pertinente).
+alter table produtor
+add column email varchar(100) unique,
+add column sobrenome varchar(50); 
+
+-- 2 - Criar uma nova tabela para o seu sistema. Considere o sistema que será gerado 
+-- e implemente uma nova tabela que você considera necessária e que não foi proposta na atividade anterior.
+create table animal(
+id_animal int not null auto_increment primary key,
+tipo varchar(50) not null,
+quantidade int);
+
+
+-- 3 - Monte uma SQL para cada tabela para inserção de registros contendo todos os campos.
+INSERT INTO produtor (nome, sobrenome, email, cpf_cnpj, contato)
+VALUES
+  ('João', 'Maciel', 'joao@gmail.com', '123.456.789-00', '(35)99712-1415'),
+  ('Maria', 'Demétrio', 'maria@gmail.com', '987.654.321-00','(35)99712-8784');
+  
+  
+INSERT INTO fazenda (nome, localizacao, tamanho_ha, id_produtor_fk) VALUES
+('Fazenda Boa Vista', 'Zona Rural, Machado', 150.00, 1),
+('Fazenda São Pedro', 'Zona Rural, Alfenas', 200.50, 2);
+
+
+
+INSERT INTO funcionario (nome, cargo, salario_hora, contato, id_fazenda_fk) VALUES
+('Carlos Alberto', 'Tratorista', 15.50, 'carlos@gmail.com', 1),
+('Ana Lívia', 'Engenheira Agrônoma', 35.75, 'ana@gmail.com', 2);
+
+
+INSERT INTO talhao (nome, tipo_solo, id_fazenda_fk) VALUES
+('Talhão 1', 'Argiloso', 1),
+('Talhão 2', 'Arenoso', 2);
+
+INSERT INTO cultura (id_cultura, nome) VALUES
+(1, 'Milho'),
+(2, 'Soja');
+
+INSERT INTO cultivo (data_plantio, data_colheita, producao, id_talhao_fk, id_cultura_fk) VALUES
+('2024-10-01', '2025-01-15', 10000.00, 1, 1),
+('2024-11-10', '2025-02-20', 8500.50, 2, 2);
+
+INSERT INTO maquinario (tipo, modelo, data_aquisicao, valor_hora, id_fazenda_fk) VALUES
+('Trator', 'John Deere 5078E', '2022-03-10', 120.00, 1),
+('Pulverizador', 'Jacto Advance 2000', '2023-05-20', 95.50, 2);
+
+INSERT INTO atividade_agricola (id_atividade_agricola, tipo, data, horas_trabalhadas, id_funcionario_fk, id_cultivo_fk, id_maquina_fk) VALUES
+(1, 'Plantio', '2024-10-02', 7, 1, 1, 1),
+(2, 'Pulverização', '2024-11-15', 8.5, 2, 2, 2);
+
+INSERT INTO insumo (tipo, nome, custo_unitario, unidade) VALUES
+('Fertilizante', 'Uréia 35%', 3, 'kg'),
+('Agrotóxico', 'Glifosato', 3.25, 'litro');
+
+INSERT INTO leiturasensorial (data_hora, tipo_dado, valor, id_talhao_fk) VALUES
+('2025-04-29 13:00:00', 'Umidade Solo', 32.5, 1),
+('2025-04-25 15:00:00', 'pH Solo', 6.8, 2);
+
+INSERT INTO venda_producao (data_venda, quantidade, receita_total, id_cultivo_fk) VALUES
+('2025-02-25', 9000.00, 54000.00, 1),
+('2025-03-10', 8000.00, 48000.00, 2);
+
+INSERT INTO aplicacao_insumo (id_insumo_fk, id_cultivo_fk, data_aplicacao, dosagem, custo_total) VALUES
+(1, 1, '2024-10-03 08:00:00', 100.0, 250.00),
+(2, 2, '2024-11-12 09:00:00', 50.0, 187.50);
+
+INSERT INTO animal(tipo, quantidade) VALUES
+('Boi', 200),
+('Vaca', 350);
+
+-- 4 - Monte uma SQL para cada tabela para exclusão de registros baseado no id da tabela em questão.
+DELETE FROM animal
+WHERE id_animal = 1;
+
+DELETE FROM aplicacao_insumo
+WHERE id_aplicacao_insumo = 1;
+
+DELETE FROM venda_producao
+WHERE id_venda_producao = 1;
+
+DELETE FROM leiturasensorial
+WHERE id_leitura = 1;
+
+DELETE FROM insumo
+WHERE id_insumo = 1;
+
+DELETE FROM atividade_agricola
+WHERE id_atividade_agricola = 1;
+
+DELETE FROM maquinario
+WHERE id_maquina = 1;
+
+DELETE FROM cultivo
+WHERE id_cultivo = 1;
+
+DELETE FROM cultura
+WHERE id_cultura = 1;
+
+DELETE FROM talhao
+WHERE id_talhao = 1;
+
+DELETE FROM funcionario
+WHERE id_funcionario = 1;
+
+DELETE FROM fazenda
+WHERE id_fazenda = 1;
+
+DELETE FROM produtor
+WHERE id_produtor = 1;
+
+-- 5 - Monte uma SQL para cada tabela para atualização de registros baseado no id da tabela em questão.
+UPDATE produtor 
+SET nome = 'Maria'
+WHERE id_produtor = 2;
+
+UPDATE fazenda 
+SET nome = 'Fazenda São João'
+WHERE id_fazenda = 2;
+
+UPDATE funcionario 
+SET nome = 'Ana Luísa'
+WHERE id_funcionario = 2;
+
+UPDATE talhao 
+SET nome = 'Talhão 3'
+WHERE id_talhao = 2;
+
+UPDATE cultura 
+SET nome = 'Feijão'
+WHERE id_cultura = 2;
+
+UPDATE cultivo 
+SET producao = 10000
+WHERE id_cultivo = 2;
+
+UPDATE maquinario 
+SET valor_hora = 100
+WHERE id_maquina = 2;
+
+UPDATE atividade_agricola 
+SET horas_trabalhadas = 5
+WHERE id_atividade_agricola = 2;
+
+UPDATE insumo 
+SET custo_unitario = 5
+WHERE id_insumo = 2;
+
+UPDATE leiturasensorial 
+SET valor = 9
+WHERE id_leitura = 2;
+
+UPDATE venda_producao 
+SET receita_total = 50000
+WHERE id_venda_producao = 2;
+
+UPDATE aplicacao_insumo 
+SET dosagem = 75.0
+WHERE id_aplicacao_insumo = 2;
+
+UPDATE animal 
+SET quantidade = 500
+WHERE id_animal = 2;
+
+-- 6- Alimente o sistema com alguns dados para geração dos relatórios que serão pedidos nos itens 7 e 8.
+INSERT INTO fazenda (nome, localizacao, tamanho_ha, id_produtor_fk) VALUES
+('Fazenda São João', 'Zona Rural, Alfenas', 200.50, 2),
+('Fazenda São Miguel', 'Zona Rural, Alfenas', 400.50, 6),
+('Fazenda São Sebastião', 'Zona Rural, Machado', 100.50, 7),
+('Fazenda São Jorge', 'Zona Rural, Machado', 600.50, 8),
+('Fazenda Dom Pedro', 'Zona Rural, Cruzilia', 900.50, 6),
+('Fazenda Joaquim Alves', 'Zona Rural, Divinopólis', 800.50, 7),
+('Fazenda Pernanbucana', 'Zona Rural, Varginha', 300.50, 8);
+
+INSERT INTO produtor (nome, sobrenome, email, cpf_cnpj, contato)
+VALUES
+  ('João', 'Gabriel', 'Joaogabriel@gmail.com', '123.789.456-00', '(35)99713-1615'),
+  ('Alisson', 'Fernandes', 'Alisson@gmail.com', '123.654.789-00', '(35)99724-1419'),
+  ('Maria', 'Joaquina', 'MariaJoaquina@gmail.com', '987.321.456-00','(35)99712-8894');
+  
+  INSERT INTO talhao (nome, tipo_solo, id_fazenda_fk) VALUES
+('Talhão 1', 'Argiloso', 17),
+('Talhão 2', 'Argiloso', 18),
+('Talhão 3', 'Árido', 19),
+('Talhão 4', 'Árido', 20),
+('Talhão 5', 'Úmido', 21),
+('Talhão 6', 'Úmido', 22),
+('Talhão 7', 'Argiloso', 23);
+
+INSERT INTO cultura (id_cultura, nome) VALUES
+(3, 'Milho'),
+(4, 'Soja'),
+(5, 'Café'),
+(6, 'Trigo');
+
+INSERT INTO cultivo (data_plantio, data_colheita, producao, id_talhao_fk, id_cultura_fk) VALUES
+('2024-10-01', '2025-01-15', 10000.00, 9, 3),
+('2024-11-10', '2025-02-20', 8500.50, 10, 4),
+('2024-09-01', '2025-01-10', 12000.00, 11, 5),
+('2024-12-01', '2025-04-10', 15000.00, 12, 6);
+
+INSERT INTO funcionario (nome, cargo, salario_hora, contato, id_fazenda_fk) VALUES
+('João Pedro', 'Operador de Colheitadeira', 20.00, 'joao@gmail.com', 17),
+('Mariana Souza', 'Técnica de Irrigação', 30.00, 'mariana@gmail.com', 20),
+('Luiz Henrique', 'Mecânico', 25.00, 'luiz@gmail.com', 18);
+
+INSERT INTO maquinario (tipo, modelo, data_aquisicao, valor_hora, id_fazenda_fk) VALUES
+('Colheitadeira', 'Case IH 9230', '2022-08-15', 200.00, 2),
+('Trator', 'Massey Ferguson 6714', '2021-06-25', 150.00, 2),
+('Pulverizador', 'STARA Pulver', '2023-01-10', 90.00, 2);
+INSERT INTO maquinario (tipo, modelo, data_aquisicao, valor_hora, id_fazenda_fk) VALUES
+('Colheitadeira', 'Case IH 9230', '2022-08-15', 200.00, 17),
+('Trator', 'Massey Ferguson 6714', '2021-06-25', 150.00, 17),
+('Pulverizador', 'STARA Pulver', '2023-01-10', 90.00, 20);
+INSERT INTO maquinario (tipo, modelo, data_aquisicao, valor_hora, id_fazenda_fk) VALUES
+('Colheitadeira', 'Case IH 9230', '2022-08-15', 200.00, 18),
+('Trator', 'Massey Ferguson 6714', '2021-06-25', 150.00, 18),
+('Pulverizador', 'STARA Pulver', '2023-01-10', 90.00, 18);
+
+-- 7- Monte as views necessárias para serem utilizadas nos relatórios do seu software (no mínimo 5 views).
+-- Dê prioridade conforme demandas apresentadas no contexto.
+CREATE VIEW vw_resumo_cultivos AS
+SELECT 
+    F.nome AS 'Nome da Fazenda',
+    T.nome AS 'Nome do talhão',
+    cultivo.data_plantio AS 'Data de plantio',
+    cultivo.data_colheita AS 'Data de Colheita',
+    cultivo.producao AS 'Produção',
+    cultura.nome AS 'Nome da Cultura'
+FROM
+    fazenda AS F
+        INNER JOIN
+    talhao AS T ON F.id_fazenda = T.id_fazenda_fk
+        INNER JOIN
+    cultivo ON cultivo.id_talhao_fk = T.id_talhao
+		INNER JOIN
+	cultura ON cultura.id_cultura = cultivo.id_cultura_fk;
+SELECT * FROM vw_resumo_cultivos;
+
+CREATE VIEW vw_producao_total_fazenda AS
+SELECT 
+    F.nome AS 'Nome da Fazenda',
+    SUM(cultivo.producao) AS 'Total de Produção'
+FROM
+    fazenda AS F
+        INNER JOIN
+    talhao AS T ON F.id_fazenda = T.id_fazenda_fk
+        INNER JOIN
+    cultivo ON cultivo.id_talhao_fk = T.id_talhao
+    GROUP BY F.id_fazenda ORDER BY SUm(cultivo.producao) DESC;
+SELECT * FROM vw_producao_total_fazenda;
+
+CREATE VIEW vw_funcionario_fazenda AS
+    SELECT 
+        T.nome AS 'Nome do Talhão',
+        T.tipo_solo AS 'Tipo de Solo',
+        FA.nome AS 'Nome da Fazenda',
+        F.nome AS 'Nome do Funcionário'
+    FROM
+        talhao AS T
+            INNER JOIN
+        fazenda AS FA ON FA.id_fazenda = T.id_fazenda_fk
+            INNER JOIN
+        funcionario AS F ON F.id_fazenda_fk = FA.id_fazenda;
+	SELECT * FROM vw_funcionario_fazenda;
+
+CREATE VIEW vw_maquina_fazenda AS
+SELECT 
+    FA.nome AS 'Nome da Fazenda',
+    M.tipo AS 'Tipo da máquina',
+    M.modelo AS 'Modelo da máquina',
+    M.valor_hora AS 'Valor por Hora da Máquina'
+FROM
+    maquinario AS M
+        INNER JOIN
+    fazenda AS FA ON FA.id_fazenda = M.id_fazenda_fk;
+    SELECT * FROM vw_maquina_fazenda;
+    
+CREATE VIEW vw_gasto_maquina AS
+SELECT 
+    M.tipo AS 'Tipo da máquina',
+    M.modelo AS 'Modelo da máquina',
+    SUM(M.valor_hora) AS 'Valor Total Gasto',
+    FA.nome AS 'Nome da Fazenda'
+FROM
+    maquinario AS M
+        INNER JOIN
+    fazenda AS FA ON FA.id_fazenda = M.id_fazenda_fk
+GROUP BY M.tipo , M.modelo , FA.nome
+ORDER BY SUM(M.valor_hora) DESC;
+SELECT * FROM vw_gasto_maquina;
+
+/* 8- Construa subquerys (subconsultas) 
+importantes para o funcionamento do sistema (no mínimo 7). 
+Dê prioridade conforme as demandas apresentadas no contexto. */
+SELECT 
+    FA.nome AS 'Nome da fazenda',
+    (SELECT SUM(C.producao) 
+        FROM cultivo AS C
+        INNER JOIN talhao AS T ON C.id_talhao_fk = T.id_talhao
+        WHERE T.id_fazenda_fk = FA.id_fazenda) AS 'Total de Produção de cultivo'
+FROM
+    fazenda AS FA
+    ORDER BY `Total de Produção de cultivo` DESC;
+
+SELECT 
+    FA.nome AS 'Nome da fazenda',
+    FA.tamanho_ha AS 'Tamanho em hectares',
+    (SELECT MAX(tamanho_ha) FROM fazenda) AS 'Maior Tamanho de Fazenda'
+FROM
+    fazenda AS FA
+WHERE
+    FA.tamanho_ha = (SELECT MAX(tamanho_ha) FROM fazenda);
+
+SELECT 
+    FA.nome AS 'Nome da fazenda',
+    FA.tamanho_ha AS 'Tamanho em hectares',
+    (SELECT MIN(tamanho_ha) FROM fazenda) AS 'Menor Tamanho de Fazenda'
+FROM
+    fazenda AS FA
+WHERE
+    FA.tamanho_ha = (SELECT MIN(tamanho_ha) FROM fazenda);
+
+SELECT 
+    CU.id_cultivo,
+    CU.producao,
+    (SELECT MAX(producao) FROM cultivo) AS 'Maior Produção'
+FROM
+    cultivo AS CU
+WHERE
+    CU.producao = (SELECT MAX(producao) FROM cultivo);
+    
+SELECT 
+    FA.nome AS 'Nome da fazenda',
+    M.tipo AS 'Tipo de Máquina',
+    M.modelo AS 'Modelo da Máquina',
+    M.valor_hora AS 'Valor por Hora',
+    (SELECT MAX(M2.valor_hora) 
+        FROM maquinario AS M2
+        WHERE M2.id_fazenda_fk = FA.id_fazenda) AS 'Máxima Taxa por Hora da Máquina'
+FROM
+    maquinario AS M
+    INNER JOIN fazenda AS FA ON FA.id_fazenda = M.id_fazenda_fk;
+    
+    SELECT 
+    FA.nome AS 'Nome da fazenda',
+    M.tipo AS 'Tipo de Máquina',
+    M.modelo AS 'Modelo da Máquina',
+    M.valor_hora AS 'Valor por Hora',
+    (SELECT MIN(M2.valor_hora) 
+        FROM maquinario AS M2
+        WHERE M2.id_fazenda_fk = FA.id_fazenda) AS 'Minima Taxa por Hora da Máquina'
+FROM
+    maquinario AS M
+    INNER JOIN fazenda AS FA ON FA.id_fazenda = M.id_fazenda_fk;
+
+SELECT 
+    CU.id_cultivo AS 'ID do Cultivo',
+    CU.producao AS 'Produção',
+    (SELECT MIN(producao) FROM cultivo) AS 'Menor Produção'
+FROM
+    cultivo AS CU
+WHERE
+    CU.producao = (SELECT MIN(producao) FROM cultivo);
