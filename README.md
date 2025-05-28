@@ -28,7 +28,6 @@ Implementação de **7 subconsultas** para otimizar o funcionamento do sistema
 
 ### Entrega Final  Realizada
 - **Arquivo `.txt`** contendo todas as SQLs utilizadas  
-- **Arquivo `.pdf`** com comandos SQL e prints dos resultados  
 - **Dump do banco de dados** funcional  
 
 ---
