@@ -732,6 +732,57 @@ VALUES
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE TRIGGER tr_deleta_funcionario
+AFTER DELETE ON funcionario
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria
+(acao_realizada,
+tabela,
+data_time,
+usuario)
+VALUES
+(CONCAT('DELETE FROM funcionario WHERE id = ', OLD.id_funcionario, ';'),"Fucionario",NOW(),USER());
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_atualiza_funcionario
+AFTER UPDATE ON funcionario
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria
+(acao_realizada,
+tabela,
+data_time,
+usuario)
+VALUES
+(CONCAT('UPDATE funcionario SET nome = ', NEW.nome, ', cargo = ', NEW.cargo, ', salario_hora = ', NEW.salario_hora, ', contato = ', NEW.contato, ', id_fazenda_fk = ', NEW.id_fazenda_fk, ' WHERE id = ', OLD.id_funcionario, ';'),"Funcionario",NOW(),USER());
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_insere_funcionario
+AFTER INSERT ON funcionario
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria
+(acao_realizada,
+tabela,
+data_time,
+usuario)
+VALUES
+(CONCAT('INSERT INTO funcionario (nome, cargo, salario_hora, contato, id_fazenda_fk) VALUES (', 
+        NEW.nome, ', ', NEW.cargo, ', ', NEW.salario_hora, ', ', NEW.contato, ', ', NEW.id_fazenda_fk, ');'),
+"Funcionario",
+NOW(),
+USER());
+END //
+DELIMITER ;
+
+
+
 INSERT INTO fazenda (nome, localizacao, tamanho_ha, id_produtor_fk) VALUES
 ('Fazenda São José', 'Zona Rural, São Paulo', 200.50, 2),
 ('Fazenda São Gonçalo', 'Zona Rural, Cruzilia', 200.50, 8),
