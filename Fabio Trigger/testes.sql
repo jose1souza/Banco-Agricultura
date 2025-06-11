@@ -13,3 +13,5 @@ update funcionario set cargo = 'Administrador chefe' where id_funcionario = 13;
 -- 2 delete teste
 delete from maquinario where id_maquina = 21;
 delete from funcionario where id_funcionario = 13;
+
+select * from auditoria;
