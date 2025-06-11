@@ -1,5 +1,7 @@
 USE agricultura; 
 
+truncate table auditoria;
+
 -- 2 inserts teste
 INSERT INTO maquinario (tipo, modelo, data_aquisicao, valor_hora, id_fazenda_fk) VALUES
 ('Tobata', 'HQ12', '2020-08-15', 250.00, 17);
